@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Calculator - Degrees</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .calculator {
+      width: 420px;
+      background: #1b1b1b;
+      padding: 20px;
+      border-radius: 25px;
+      box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    #display {
+      width: 100%;
+      height: 80px;
+      text-align: right;
+      padding: 20px;
+      font-size: 32px;
+      border: none;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      background: #000;
+      color: #0ff;
+      box-shadow: inset 0px 0px 15px #00f5ff55;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      height: 65px;
+      font-size: 20px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.6);
+    }
+
+    button:active {
+      transform: scale(0.9);
+    }
+
+    /* Colors */
+    .digit {
+      background: #333;
+      color: #fff;
+    }
+    .digit:hover { background: #444; }
+
+    .operator {
+      background: #ff9500;
+      color: #fff;
+      font-weight: bold;
+    }
+    .operator:hover { background: #e68500; }
+
+    .function {
+      background: #2d89ef;
+      color: #fff;
+      font-size: 16px;
+    }
+    .function:hover { background: #1d6fcb; }
+
+    .special {
+      background: #666;
+      color: #fff;
+    }
+    .special:hover { background: #777; }
+
+    .equal {
+      grid-column: span 2;
+      border-radius: 15px;
+      background: #28a745;
+      color: #fff;
+      font-weight: bold;
+    }
+    .equal:hover { background: #218838; }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" disabled>
+    <div class="buttons">
+      <button class="special" onclick="clearDisplay()">C</button>
+      <button class="special" onclick="backspace()">⌫</button>
+      <button class="special" onclick="append('(')">(</button>
+      <button class="special" onclick="append(')')">)</button>
+      <button class="function" onclick="append('sqrt(')">√</button>
+
+      <button class="digit" onclick="append('7')">7</button>
+      <button class="digit" onclick="append('8')">8</button>
+      <button class="digit" onclick="append('9')">9</button>
+      <button class="operator" onclick="append('/')">÷</button>
+      <button class="function" onclick="append('pow(')">xʸ</button>
+
+      <button class="digit" onclick="append('4')">4</button>
+      <button class="digit" onclick="append('5')">5</button>
+      <button class="digit" onclick="append('6')">6</button>
+      <button class="operator" onclick="append('*')">×</button>
+      <button class="function" onclick="append('log10(')">log</button>
+
+      <button class="digit" onclick="append('1')">1</button>
+      <button class="digit" onclick="append('2')">2</button>
+      <button class="digit" onclick="append('3')">3</button>
+      <button class="operator" onclick="append('-')">−</button>
+      <button class="function" onclick="append('log(')">ln</button>
+
+      <button class="digit" onclick="append('0')">0</button>
+      <button class="digit" onclick="append('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+      <button class="function" onclick="append('sin(')">sin</button>
+      <button class="function" onclick="append('cos(')">cos</button>
+
+      <button class="function" onclick="append('tan(')">tan</button>
+      <button class="function" onclick="append('PI')">π</button>
+      <button class="function" onclick="append('E')">e</button>
+      <button class="function" onclick="append('%')">%</button>
+      <button class="function" onclick="append('^')">^</button>
+
+      <button class="function" onclick="append('asin(')">sin⁻¹</button>
+      <button class="function" onclick="append('acos(')">cos⁻¹</button>
+      <button class="function" onclick="append('atan(')">tan⁻¹</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById("display");
+
+    // Trig in degrees
+    function sin(x) { return Math.sin(x * Math.PI/180); }
+    function cos(x) { return Math.cos(x * Math.PI/180); }
+    function tan(x) { return Math.tan(x * Math.PI/180); }
+
+    function asin(x) { return Math.asin(x) * 180/Math.PI; }
+    function acos(x) { return Math.acos(x) * 180/Math.PI; }
+    function atan(x) { return Math.atan(x) * 180/Math.PI; }
+
+    function sqrt(x) { return Math.sqrt(x); }
+    function pow(x,y) { return Math.pow(x,y); }
+    function log10(x) { return Math.log10(x); }
+    function log(x) { return Math.log(x); } // natural log
+
+    function append(value) { display.value += value; }
+    function clearDisplay() { display.value = ""; }
+    function backspace() { display.value = display.value.slice(0, -1); }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = "Error";
+      }
+    }
+  </script>
+</body>
+</html>
